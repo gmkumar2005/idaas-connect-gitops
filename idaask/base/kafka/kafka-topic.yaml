@@ -2,7 +2,7 @@
 apiVersion: kafka.strimzi.io/v1beta1
 kind: KafkaTopic
 metadata:
-  name: opsMgmt-PlatformTransactions
+  name: opsMgmtPlatformTransactions
   labels:
     strimzi.io/cluster: idaas-cluster
 spec:
