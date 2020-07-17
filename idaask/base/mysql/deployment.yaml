@@ -18,9 +18,7 @@ spec:
     metadata:
       labels:
         app: idaas-db
-        component: mysql
-    annotations:
-        sidecar.istio.io/inject: 'false'
+        component: mysql    
     spec:
       containers:
         - resources: {}
