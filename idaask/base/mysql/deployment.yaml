@@ -1,0 +1,94 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: idaas-db
+  labels:
+    app: idaas-db
+    component: mysql
+spec:
+  selector:
+    matchLabels:
+      app: idaas-db
+      component: mysql
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  template:
+    metadata:
+      labels:
+        app: idaas-db
+        component: mysql
+    annotations:
+        sidecar.istio.io/inject: 'false'
+    spec:
+      containers:
+        - resources: {}
+          readinessProbe:
+            exec:
+              command:
+                - /bin/bash
+                - '-c'
+                - 'mysql -D ${MYSQL_DATABASE} -uroot -e ''SELECT 1'''
+            initialDelaySeconds: 5
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          terminationMessagePath: /dev/termination-log
+          name: idaas-mysql
+          livenessProbe:
+            exec:
+              command:
+                - /bin/bash
+                - '-c'
+                - mysqladmin ping -uroot
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          env:
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: idaas-mysql-secrets
+                  key: MYSQL_USER
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: idaas-mysql-secrets
+                  key: MYSQL_PASSWORD
+            - name: MYSQL_LOWER_CASE_TABLE_NAMES
+              value: '1'
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: idaas-mysql-secrets
+                  key: MYSQL_ROOT_PASSWORD
+            - name: MYSQL_ALLOW_EMPTY_PASSWORD
+              value: 'true'
+            - name: MYSQL_DATABASE
+              value: idaas
+          ports:
+            - name: dbapi
+              containerPort: 3306
+              protocol: TCP
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: idaas-mysql
+              mountPath: /var/lib/mysql/data
+          terminationMessagePolicy: File
+          image: 'registry.redhat.io/rhscl/mysql-80-rhel7:latest'
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+    strategy:
+      type: RollingUpdate
+      rollingUpdate:
+        maxUnavailable: 25%
+        maxSurge: 25%
+    revisionHistoryLimit: 10
+    progressDeadlineSeconds: 600      
