@@ -20,6 +20,10 @@ spec:
         app: idaas-db
         component: mysql    
     spec:
+      volumes:
+        - name: idaas-mysql
+          persistentVolumeClaim:
+            claimName: idaas-mysql   
       containers:
         - resources: {}
           readinessProbe:
