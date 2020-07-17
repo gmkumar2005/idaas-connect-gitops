@@ -1,0 +1,4 @@
+resources:
+# single node single zookeper
+- kafka-ephermal-single.yaml
+- kafka-topic.yaml
