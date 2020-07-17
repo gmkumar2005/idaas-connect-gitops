@@ -3,3 +3,4 @@ commonLabels:
 bases:
 - ./mysql
 - ./openshift
+- ./kafka
