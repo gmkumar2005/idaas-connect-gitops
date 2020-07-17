@@ -1,7 +1,7 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: katib-mysql
+  name: idaas-mysql
   finalizers:
     - kubernetes.io/pvc-protection
 spec:
