@@ -28,7 +28,7 @@ spec:
 apiVersion: kafka.strimzi.io/v1beta1
 kind: KafkaTopic
 metadata:
-  name: mctn_adt
+  name: mctn-adt
   labels:
     strimzi.io/cluster: idaas-cluster
 spec:
