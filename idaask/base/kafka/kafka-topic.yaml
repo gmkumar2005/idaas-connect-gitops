@@ -90,3 +90,6 @@ spec:
     retention.ms: 7200000
     segment.bytes: 1073741824
 ---
+# Commands to verify the topics
+# oc run kafka-producer -ti --image=registry.redhat.io/amq7/amq-streams-kafka-25-rhel7:1.5.0 --rm=true --restart=Never -- bin/kafka-console-producer.sh --broker-list idaas-cluster-kafka-bootstrap:9092 --topic ops-mgmtplatform-transactions  
+# oc run kafka-consumer -ti --image=registry.redhat.io/amq7/amq-streams-kafka-25-rhel7:1.5.0 --rm=true --restart=Never -- bin/kafka-console-consumer.sh --bootstrap-server idaas-cluster-kafka-bootstrap:9092 --topic ops-mgmtplatform-transactions --from-beginning 
