@@ -15,7 +15,7 @@ spec:
 apiVersion: kafka.strimzi.io/v1beta1
 kind: KafkaTopic
 metadata:
-  name: MCTN_MMS_ADT
+  name: mctn-nms-adt
   labels:
     strimzi.io/cluster: idaas-cluster
 spec:
@@ -28,7 +28,7 @@ spec:
 apiVersion: kafka.strimzi.io/v1beta1
 kind: KafkaTopic
 metadata:
-  name: MCTN_ADT
+  name: mctn_adt
   labels:
     strimzi.io/cluster: idaas-cluster
 spec:
@@ -41,7 +41,7 @@ spec:
 apiVersion: kafka.strimzi.io/v1beta1
 kind: KafkaTopic
 metadata:
-  name: MMS_ADT
+  name: mms-adt
   labels:
     strimzi.io/cluster: idaas-cluster
 spec:
@@ -54,7 +54,7 @@ spec:
 apiVersion: kafka.strimzi.io/v1beta1
 kind: KafkaTopic
 metadata:
-  name: ENT_ADT
+  name: ent-adt
   labels:
     strimzi.io/cluster: idaas-cluster
 spec:
@@ -67,7 +67,7 @@ spec:
 apiVersion: kafka.strimzi.io/v1beta1
 kind: KafkaTopic
 metadata:
-  name: FHIRSvr_Condition 
+  name: fhirsvr-condition 
   labels:
     strimzi.io/cluster: idaas-cluster
 spec:
@@ -80,7 +80,7 @@ spec:
 apiVersion: kafka.strimzi.io/v1beta1
 kind: KafkaTopic
 metadata:
-  name: Ent_FHIRSvr_Condition 
+  name: ent-fhirsvr-condition 
   labels:
     strimzi.io/cluster: idaas-cluster
 spec:
