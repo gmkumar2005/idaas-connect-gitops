@@ -9,3 +9,13 @@ spec:
       value: master
     - name:  url
       value: https://github.com/parkarteam/iDAASTestingComponent.git
+---
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: idaas-testingcomponent-image
+spec:
+  params:
+    - name: url
+      value: 'image-registry.openshift-image-registry.svc:5000/idaas-connectk/idaas-testingcomponent-app:latest'
+  type: image
