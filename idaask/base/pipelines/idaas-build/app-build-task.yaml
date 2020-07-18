@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: idaas-app-build
+  name: build-echo
 spec:
   results:
     - name: builtImage-digest
@@ -15,6 +15,11 @@ spec:
     outputs:
       - name: idaas-image
         type: image
+    workspaces:
+      - name: maven-settings
+        workspace: maven-settings
+      - name: source
+        workspace: shared-workspace        
   steps:
     - name: echo
       image: busybox
@@ -25,12 +30,31 @@ spec:
         echo idaas-image: $(resources.outputs.idaas-image.url)
         echo pwd:  $(pwd)
         ls -l      
-    - name: mvnpackage 
-      taskRef:
-        name: maven
-        kind: ClusterTask
-      workspaces:
-        - name: maven-settings
-          workspace: maven-settings
-        - name: source
-          workspace: shared-workspace
+
+---
+
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: build-mvnpackage
+spec:
+  results:
+    - name: builtImage-digest
+  workspaces:
+    - name: shared-workspace
+    - name: maven-settings
+  resources:
+    inputs:
+      - name: idaas-source
+        type: git
+    outputs:
+      - name: idaas-image
+        type: image
+    taskRef:
+      name: maven
+      kind: ClusterTask
+    workspaces:
+      - name: maven-settings
+        workspace: maven-settings
+      - name: source
+        workspace: shared-workspace

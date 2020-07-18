@@ -12,14 +12,14 @@ spec:
   - name: app-image
     type: image
   tasks:
-  - name: idaas-app-build
+  - name: idaas-echo
     workspaces:
       - name: shared-workspace
         workspace: shared-workspace
       - name: maven-settings
         workspace: maven-settings
     taskRef:
-        name: idaas-app-build
+        name: build-echo
         resources:
         inputs:
           - name: idaas-source
@@ -27,4 +27,21 @@ spec:
         outputs:
           - name: idaas-image
             resource: app-image
+  - name: idaas-build
+    workspaces:
+      - name: shared-workspace
+        workspace: shared-workspace
+      - name: maven-settings
+        workspace: maven-settings
+    taskRef:
+        name: build-mvnpackage
+        runAfter:
+        - idaas-echo
+        resources:
+        inputs:
+          - name: idaas-source
+            resource: app-git
+        outputs:
+          - name: idaas-image
+            resource: app-image            
           
