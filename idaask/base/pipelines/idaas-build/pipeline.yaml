@@ -21,12 +21,12 @@ spec:
     taskRef:
         name: build-echo
         resources:
-        inputs:
-          - name: idaas-source
-            resource: app-git
-        outputs:
-          - name: idaas-image
-            resource: app-image
+          inputs:
+            - name: idaas-source
+              resource: app-git
+          outputs:
+            - name: idaas-image
+              resource: app-image
   - name: idaas-build
     workspaces:
       - name: shared-workspace
@@ -39,10 +39,10 @@ spec:
         runAfter:
         - idaas-echo
         resources:
-        inputs:
-          - name: idaas-source
-            resource: app-git
-        outputs:
-          - name: idaas-image
-            resource: app-image            
+          inputs:
+            - name: idaas-source
+              resource: app-git
+          outputs:
+            - name: idaas-image
+              resource: app-image            
           
