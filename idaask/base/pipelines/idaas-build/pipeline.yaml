@@ -7,42 +7,42 @@ spec:
     - name: shared-workspace
     - name: maven-settings
   resources:
-  - name: app-git
-    type: git
-  - name: app-image
-    type: image
+    - name: app-git
+      type: git
+    - name: app-image
+      type: image
   tasks:
-  - name: idaas-echo
-    workspaces:
-      - name: shared-workspace
-        workspace: shared-workspace
-      - name: maven-settings
-        workspace: maven-settings
-    taskRef:
-        name: build-echo
-    resources:
-      inputs:
-        - name: idaas-source
-          resource: app-git
-      outputs:
-        - name: idaas-image
-          resource: app-image
-  # - name: idaas-build
-  #   workspaces:
-  #     - name: shared-workspace
-  #       workspace: shared-workspace
-  #     - name: maven-settings
-  #       workspace: maven-settings
-  #   taskRef:
-  #       name: maven
-  #       kind: ClusterTask
-  #   runAfter:
-  #   - idaas-echo
-  #   resources:
-  #     inputs:
-  #       - name: idaas-source
-  #         resource: app-git
-  #     outputs:
-  #       - name: idaas-image
-  #         resource: app-image            
+    - name: idaas-echo
+      workspaces:
+        - name: shared-workspace
+          workspace: shared-workspace
+        - name: maven-settings
+          workspace: maven-settings
+      taskRef:
+          name: build-echo
+      resources:
+        inputs:
+          - name: idaas-source
+            resource: app-git
+        outputs:
+          - name: idaas-image
+            resource: app-image
+    - name: idaas-build
+      workspaces:
+        - name: shared-workspace
+          workspace: shared-workspace
+        - name: maven-settings
+          workspace: maven-settings
+      taskRef:
+          name: maven
+          kind: ClusterTask
+      runAfter:
+      - idaas-echo
+      resources:
+        inputs:
+          - name: idaas-source
+            resource: app-git
+        outputs:
+          - name: idaas-image
+            resource: app-image            
           
