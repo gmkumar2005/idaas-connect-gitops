@@ -20,13 +20,13 @@ spec:
         workspace: maven-settings
     taskRef:
         name: build-echo
-        resources:
-          inputs:
-            - name: idaas-source
-              resource: app-git
-          outputs:
-            - name: idaas-image
-              resource: app-image
+    resources:
+      inputs:
+        - name: idaas-source
+          resource: app-git
+      outputs:
+        - name: idaas-image
+          resource: app-image
   - name: idaas-build
     workspaces:
       - name: shared-workspace
@@ -38,11 +38,11 @@ spec:
         kind: ClusterTask
         runAfter:
         - idaas-echo
-        resources:
-          inputs:
-            - name: idaas-source
-              resource: app-git
-          outputs:
-            - name: idaas-image
-              resource: app-image            
+    resources:
+      inputs:
+        - name: idaas-source
+          resource: app-git
+      outputs:
+        - name: idaas-image
+          resource: app-image            
           
