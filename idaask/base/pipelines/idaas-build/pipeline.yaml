@@ -35,6 +35,6 @@ spec:
           workspace: maven-settings
       taskRef:
           name: maven
-          kind: ClusterTask
+          # kind: ClusterTask
       runAfter:
         - idaas-echo
