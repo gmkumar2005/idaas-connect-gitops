@@ -2,7 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
   generateName: idaas-pipeline-run-
-  name: idaas-pipeline-run
+  name: idaas-pipeline-run-1
 spec:
   pipelineRef:
     name: idaas-testingcomponent-pipeline
