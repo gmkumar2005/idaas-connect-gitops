@@ -3,6 +3,9 @@ kind: Pipeline
 metadata:
   name: idaas-testingcomponent-pipeline
 spec:
+  workspaces:
+      - name: shared-workspace
+      - name: maven-settings
   resources:
   - name: app-git
     type: git
@@ -11,7 +14,7 @@ spec:
   tasks:
   - name: build-s2i
     taskRef:
-      name: s2i-java-8
+      name: maven
       kind: ClusterTask
     params:
       - name: TLSVERIFY
