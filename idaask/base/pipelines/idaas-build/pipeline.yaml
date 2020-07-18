@@ -34,7 +34,8 @@ spec:
       - name: maven-settings
         workspace: maven-settings
     taskRef:
-        name: build-mvnpackage
+        name: maven
+        kind: ClusterTask
         runAfter:
         - idaas-echo
         resources:
