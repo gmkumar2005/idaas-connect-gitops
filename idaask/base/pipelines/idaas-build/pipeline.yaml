@@ -37,7 +37,7 @@ spec:
           name: maven
           kind: ClusterTask
       runAfter:
-      - idaas-echo
+        - idaas-echo
       resources:
         inputs:
           - name: idaas-source
