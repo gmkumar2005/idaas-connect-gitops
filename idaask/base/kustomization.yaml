@@ -4,3 +4,4 @@ bases:
 - ./mysql
 - ./openshift
 - ./kafka
+- ./pipelines
