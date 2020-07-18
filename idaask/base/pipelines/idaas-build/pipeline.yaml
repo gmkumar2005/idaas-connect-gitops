@@ -34,7 +34,17 @@ spec:
         - name: maven-settings
           workspace: maven-settings
       taskRef:
-          name: maven
-          # kind: ClusterTask
-      runAfter:
+        name: s2i-java-8
+        kind: ClusterTask
+      params:
+        - name: TLSVERIFY
+          value: "false"
+      resources:
+        inputs:
+        - name: source
+          resource: app-git
+        outputs:
+        - name: image
+          resource: app-image
+        runAfter:
         - idaas-echo
