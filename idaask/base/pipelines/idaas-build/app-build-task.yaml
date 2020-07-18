@@ -15,11 +15,6 @@ spec:
     outputs:
       - name: idaas-image
         type: image
-    workspaces:
-      - name: maven-settings
-        workspace: maven-settings
-      - name: source
-        workspace: shared-workspace        
   steps:
     - name: echo
       image: busybox
