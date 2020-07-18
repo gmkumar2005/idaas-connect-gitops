@@ -1,25 +1,30 @@
 apiVersion: tekton.dev/v1alpha1
 kind: Pipeline
 metadata:
-  name: idaas-testingcomponent-s2i-pipeline
+  name: idaas-testingcomponent-pipeline
 spec:
+  workspaces:
+    - name: shared-workspace
+    - name: maven-settings
   resources:
   - name: app-git
     type: git
   - name: app-image
     type: image
   tasks:
-  - name: build-s2i
+  - name: idaas-app-build
+    workspaces:
+      - name: shared-workspace
+        workspace: shared-workspace
+      - name: maven-settings
+        workspace: maven-settings
     taskRef:
-      name: s2i-java-8
-      kind: ClusterTask
-    params:
-      - name: TLSVERIFY
-        value: "false"
-    resources:
-      inputs:
-      - name: source
-        resource: app-git
-      outputs:
-      - name: image
-        resource: app-image
+        name: idaas-app-build
+        resources:
+        inputs:
+          - name: idaas-source
+            resource: app-git
+        outputs:
+          - name: idaas-image
+            resource: app-image
+          

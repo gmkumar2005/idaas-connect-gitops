@@ -1,0 +1,21 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: idaas-pipeline-run-
+  name: idaas-pipeline-run
+spec:
+  pipelineRef:
+    name: idaas-testingcomponent-pipeline
+  resources:
+    - name: app-git
+      resourceRef:
+        name: idaas-testingcomponent-git
+    - name: app-image
+      resourceRef:
+        name: idaas-testingcomponent-image
+  workspaces:
+    - name: shared-workspace
+      persistentVolumeClaim:
+        claimName: maven-source-pvc
+    - name: maven-settings
+      emptyDir: {}

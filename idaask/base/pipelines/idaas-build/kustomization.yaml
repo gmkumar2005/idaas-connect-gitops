@@ -1,3 +1,6 @@
 resources:
 - pipelineresource.yaml
 - pipeline.yaml
+- app-build-task.yaml
+- persistentvolumeclaim.yaml
+- pipelinerun.yaml
