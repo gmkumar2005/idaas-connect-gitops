@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: idaas-kafdrop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: idaas-kafdrop
+  template:
+    metadata:
+      labels:
+        app: idaas-kafdrop
+    spec:
+      containers:
+      - name: idaas-kafdrop
+        image: obsidiandynamics/kafdrop:latest
+        ports:
+          - name: http
+            containerPort: 9000
+            protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: "/actuator/health"
+            port: http
+          initialDelaySeconds: 180
+          periodSeconds: 30
+          timeoutSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: "/actuator/health"
+            port: http
+          initialDelaySeconds: 20
+          periodSeconds: 5
+          timeoutSeconds: 10
+        env:
+        - name: KAFKA_BROKERCONNECT
+          value: "idaas-cluster-kafka-bootstrap:9092"
+        - name: SERVER_SERVLET_CONTEXTPATH
+          value: "/"
+        # - name: JVM_OPTS
+        #   value: "-Xms64M -Xmx128M"
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"           
+---                   
+apiVersion: v1
+kind: Service
+metadata:
+  name: idaas-kafdrop-svc
+spec:
+  ports:
+    - port: 9000
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: idaas-kafdrop            
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: idaas-kafdrop-route
+spec:
+  host: kafdrop.13.67.138.157.nip.io
+  to:
+    kind: Service
+    name: idaas-kafdrop-svc
+    weight: 100    
+  port:
+    targetPort: 9000    

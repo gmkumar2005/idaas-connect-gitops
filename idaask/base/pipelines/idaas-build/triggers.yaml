@@ -9,14 +9,13 @@ spec:
       default: master
     - name: gitrepositoryurl
       description: The git repository url
-    - name: namespace
-      description: The namespace to create the resources
   resourcetemplates:
     - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun
       metadata:
         name: idaas-trigger-pipeline-run-$(uid)
-        namespace: idaas-connectk
+        annotations:
+          argocd.argoproj.io/compare-options: IgnoreExtraneous
       spec:
         serviceAccountName: pipeline
         pipelineRef:

@@ -31,6 +31,11 @@ kubectl delete Pipeline idaas-testingcomponent-pipeline  -n idaas-connectk && ku
 
 kubectl delete PipelineRun idaas-pipeline-run-1  -n idaas-connectk && kubectl apply -f pipelinerun.yaml -n idaas-connectk && tkn pipelinerun logs idaas-pipeline-run-1  -f -n idaas-connectk
 
+kubectl apply -f triggers.yaml -n idaas-connectk
 
 
+kubectl delete TriggerTemplate idaas-app-tt -n idaas-connectk
+kubectl delete TriggerBinding idaas-app-tb -n idaas-connectk
+kubectl delete EventListener idass-app-el -n idaas-connectk
+kubectl delete route idaas-app-el -n idaas-connectk
 ```

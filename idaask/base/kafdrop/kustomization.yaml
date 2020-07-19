@@ -1,0 +1,3 @@
+resources:
+# single node single zookeper
+- deployment.yaml
