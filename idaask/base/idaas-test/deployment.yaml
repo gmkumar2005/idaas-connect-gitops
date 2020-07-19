@@ -17,7 +17,7 @@ spec:
       containers:
         - name: idaas-testingcomponent-app
           image: >-
-            image-registry.openshift-image-registry.svc:5000/idaas-connectk/idaas-testingcomponent-app@sha256:c5e46d37e2cbe752632ef391500195485e402fa18270d35598af6b69be889f72
+            image-registry.openshift-image-registry.svc:5000/idaas-connectk/idaas-testingcomponent-app:latest
           ports:
             - containerPort: 10001
               protocol: TCP
