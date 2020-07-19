@@ -5,4 +5,4 @@ resources:
 - persistentvolumeclaim.yaml
 - pipeline.yaml
 - pipelineresource.yaml
-
+- trigger.yaml

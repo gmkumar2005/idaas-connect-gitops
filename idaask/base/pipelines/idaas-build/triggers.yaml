@@ -1,0 +1,80 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerTemplate
+metadata:
+  name: idaas-app-tt
+spec:
+  params:
+    - name: gitrevision
+      description: The git revision
+      default: master
+    - name: gitrepositoryurl
+      description: The git repository url
+    - name: namespace
+      description: The namespace to create the resources
+  resourcetemplates:
+    - apiVersion: tekton.dev/v1beta1
+      kind: PipelineRun
+      metadata:
+        name: idaas-trigger-pipeline-run-$(uid)
+        namespace: idaas-connectk
+      spec:
+        serviceAccountName: pipeline
+        pipelineRef:
+          name: idaas-testingcomponent-pipeline
+        resources:
+        - name: app-image
+          resourceRef:
+            name: idaas-testingcomponent-image
+        workspaces:
+            - name: shared-ws
+              persistentVolumeClaim:
+                claimName: maven-source-pvc
+            - name: shared-repo
+              persistentVolumeClaim:
+                claimName: maven-repo-pvc
+            - name: maven-settings
+              emptyDir: {}
+        params:
+        - name: idaas-repo-url
+          value: https://github.com/parkarteam/iDAASTestingComponent.git            
+    
+---
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerBinding
+metadata:
+  name: idaas-app-tb
+spec:
+  params:
+  - name: git-repo-url
+    value: $(body.repository.url)
+  - name: git-revision
+    value: $(body.head_commit.id)
+  - name: git-repo-name
+    value: $(body.repository.name)
+
+---
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: EventListener
+metadata:
+  name: idass-app-el
+spec:
+  serviceAccountName: pipeline
+  triggers:
+  - bindings:
+    - name: idaas-app-tb
+    template:
+      name: idaas-app-tt
+
+---
+
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: el-idaas-app-el
+spec:
+  host: idaasel.13.67.138.157.nip.io
+  to:
+    kind: Service
+    name: el-idass-app-el
+    weight: 100
+
