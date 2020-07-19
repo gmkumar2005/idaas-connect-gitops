@@ -1,6 +1,8 @@
 resources:
-- pipelineresource.yaml
-- pipeline.yaml
-- app-build-task.yaml
+- bud-push-task.yaml
+- build-echo-task.yaml
+- maven-task.yaml
 - persistentvolumeclaim.yaml
-- pipelinerun.yaml
+- pipeline.yaml
+- pipelineresource.yaml
+
