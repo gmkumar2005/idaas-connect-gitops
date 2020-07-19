@@ -7,10 +7,12 @@ spec:
   selector:
     matchLabels:
       app: idaas-kafdrop
+      component: kafdrop
   template:
     metadata:
       labels:
         app: idaas-kafdrop
+        component: kafdrop
     spec:
       containers:
       - name: idaas-kafdrop
@@ -59,7 +61,8 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app: idaas-kafdrop            
+    app: idaas-kafdrop
+    component: kafdrop          
 ---
 apiVersion: route.openshift.io/v1
 kind: Route
