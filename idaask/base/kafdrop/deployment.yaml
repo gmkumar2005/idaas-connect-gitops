@@ -6,12 +6,12 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: idaas-kafdrop
+      app: idaas-app
       component: kafdrop
   template:
     metadata:
       labels: 
-        app: idaas-kafdrop
+        app: idaas-app
         component: kafdrop
     spec:
       containers:
