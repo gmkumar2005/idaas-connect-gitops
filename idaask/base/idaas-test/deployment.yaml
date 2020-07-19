@@ -3,16 +3,16 @@ apiVersion: apps/v1
 metadata:
   name: idaas-testingcomponent-app
   labels:
-    app: idaas-testingcomponent-app
+    app: idaas-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      deployment: idaas-app
+      app: idaas-app
   template:
     metadata:
       labels:
-        deployment: idaas-app
+        app: idaas-app
     spec:
       containers:
         - name: idaas-testingcomponent-app
