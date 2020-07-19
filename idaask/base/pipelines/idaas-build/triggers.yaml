@@ -57,6 +57,8 @@ apiVersion: triggers.tekton.dev/v1alpha1
 kind: EventListener
 metadata:
   name: idass-app-el
+  annotations:
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
 spec:
   serviceAccountName: pipeline
   triggers:
