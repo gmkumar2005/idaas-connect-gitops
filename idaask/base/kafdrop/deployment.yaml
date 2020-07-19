@@ -10,12 +10,12 @@ spec:
       component: kafdrop
   template:
     metadata:
-      labels:
+      labels: 
         app: idaas-kafdrop
         component: kafdrop
     spec:
       containers:
-      - name: idaas-kafdrop
+      - name: kafdrop-app
         image: obsidiandynamics/kafdrop:latest
         ports:
           - name: http
