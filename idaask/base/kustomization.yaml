@@ -6,3 +6,4 @@ bases:
 - ./kafka
 - ./pipelines
 - ./kafdrop
+- ./idaas-test

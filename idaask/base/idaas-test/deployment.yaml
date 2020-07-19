@@ -1,0 +1,95 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: idaas-testingcomponent-app
+  labels:
+    app: idaas-testingcomponent-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      deployment: idaas-app
+  template:
+    metadata:
+      labels:
+        deployment: idaas-app
+    spec:
+      containers:
+        - name: idaas-testingcomponent-app
+          image: >-
+            image-registry.openshift-image-registry.svc:5000/idaas-connectk/idaas-testingcomponent-app@sha256:c5e46d37e2cbe752632ef391500195485e402fa18270d35598af6b69be889f72
+          ports:
+            - containerPort: 10001
+              protocol: TCP
+            - containerPort: 10301
+              protocol: TCP
+            - containerPort: 10801
+              protocol: TCP
+            - containerPort: 8080
+              protocol: TCP
+            - containerPort: 8090
+              protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
+--- 
+kind: Service
+apiVersion: v1
+metadata:
+  name: idaas-testingcomponent-app
+  labels:
+    app: idaas-testingcomponent-app
+spec:
+  ports:
+    - name: fhir
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+    - name: 8090-tcp
+      protocol: TCP
+      port: 8090
+      targetPort: 8090
+    - name: hl7
+      protocol: TCP
+      port: 10001
+      targetPort: 10001
+    - name: 10301-tcp
+      protocol: TCP
+      port: 10301
+      targetPort: 10301
+    - name: 10801-tcp
+      protocol: TCP
+      port: 10801
+      targetPort: 10801
+  selector:
+    deployment: idaas-testingcomponent-app
+--- 
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: idaas-testingcomponent-app
+  labels:
+    app: idaas-testingcomponent-app
+spec:
+  host: idaas-testingcomponent-13.67.138.157.nip.io
+  to:
+    kind: Service
+    name: idaas-testingcomponent-app
+    weight: 100
+  port:
+    targetPort: fhir
+  wildcardPolicy: None
+
