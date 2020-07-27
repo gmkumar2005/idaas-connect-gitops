@@ -1,43 +1,64 @@
 # idaas-connect-gitops
-Deploy idaas connect using git-ops argocd
 
-# Simple commands
-```
-kubectl delete Pipeline idaas-testingcomponent-pipeline  -n idaas-connectk  && kubectl delete PipelineRun idaas-pipeline-run-1  -n idaas-connectk
+# About idaas-connect-gitops 
+_**idaas-connect-gitops**_  is an opensource project developed by Parkar Consulting Group which automates deployment of iDaas components on to OpenShift. It helps developer teams quickly get started with the healthcare projects utilizing RedHat Openshift platform. Customizable to your project requirements.
 
-kubectl apply -f pipeline.yaml -n idaas-connectk && kubectl apply -f pipelinerun.yaml -n idaas-connectk && tkn pipelinerun logs idaas-pipeline-run-1  -f -n idaas-connectk      
- 
-kubectl delete Task build-echo -n idaas-connectk   && kubectl apply -f   build-echo-task.yaml
+## _iDaas_ : 
+RedHat Intelligent Data as a Service (iDaaS) address data management requirements for  healthcare organizations , an architecture that can process data from
+various sources and route information to a wide variety of new destinations.  It provides inbound connectors, message consumption, a business rules engine, an action engine, federated access to data sources, caching, and outbound connectors.
 
-kubectl delete Task bud-push -n idaas-connectk   && kubectl apply -f bud-push-task.yaml
+Following components will be deployed using idaas-connect-gitops
+1)	Minimal Kafka with single cluster and single zookeeper uses openshift operator.
+2)	Kafka Topics -  Minimal set of topics needed for iDaas TestingComponent
+3)	iDaas TestingComponent --  A Java application which is a demo  application demonstrating key architectural aspects of iDaas 
+4)	MySql database 
+5)	kafDrop – Web UI for observing kafka topics
+6)	TekTon build pipelines – Complet with github webhooks integration. 
+              The pipline is triggered when the code is committed. It builds the iDaas TestingComponent , Create containers , Deploy to openshift.
 
-kubectl delete task maven -n idaas-connectk  && kubectl apply -f  maven-task.yaml
+## Planned
+1)	Ibm-fhir-server
+2)	OpenEmr 
+3)	TestData from Care Delivery Corp US
+4)  phpMyAdmin
 
+###  Using this project
+*Prerequisites* : OpenShift 4.4 , Red Hat Integration - AMQ Streams - Operator, OpenShift Pipelines Operator , Kustomize
 
-kubectl delete PipelineRun idaas-pipeline-run-1  -n idaas-connectk && kubectl apply -f pipelinerun.yaml -n idaas-connectk &&tkn pipelinerun logs idaas-pipeline-run-1  -f -n idaas-connectk    
+*Optional* : Argocd
 
+1)	Create a openshift project idaas-connectk
+2)	Clone the project
+3)	Deploy the artifacts on openshift
+Deployment can be done in two ways
+1)	Command line and 2) ArgoCD
+To use command line 
+1)	Install kustomize 
+2)	Login using oc
+4)	kustomize build  idaask/base  |   kubectl apply -f –
 
+### To use ArgoCD
+Create a new project with this project url.
+ArgoCD will keep track of changes in your infra and also changes in your github project.
+It ensures consistent copy of the configurations are deployed on the OpenShift clusters. When changes are detected it can sync to achieve the desired state. 
 
-kubectl delete Task build-echo -n idaas-connectk   && kubectl apply -f   build-echo-task.yaml
+## Screenshots
+1)	OpenShift topology view
 
-kubectl delete Task bud-push -n idaas-connectk   && kubectl apply -f bud-push-task.yaml
+![Openshift Topology view](screenshots/idaas-openshift-topology-view.png)
 
-kubectl delete task maven -n idaas-connectk  && kubectl apply -f  maven-task.yaml
+2) Tekton build pipeline view
 
-kubectl delete task get-code -n idaas-connectk  && kubectl apply -f  get-code-task.yaml
+![Tekton build pipeline view](screenshots/idaas-tekton-pipeline-view.png)
 
-kubectl delete Pipeline idaas-testingcomponent-pipeline  -n idaas-connectk && kubectl apply -f pipeline.yaml -n idaas-connectk
+3) Deployments view
 
+![Deployments view](screenshots/idaas-deployments-view.png)
 
-kubectl delete PipelineRun idaas-pipeline-run-1  -n idaas-connectk && kubectl apply -f pipelinerun.yaml -n idaas-connectk && tkn pipelinerun logs idaas-pipeline-run-1  -f -n idaas-connectk
+4) KafDrop UI
 
-kubectl apply -f triggers.yaml -n idaas-connectk
+![KafDrop UI](screenshots/idaas-kafdrop-view.png)
 
+5) Argocd Project
 
-kubectl delete TriggerTemplate idaas-app-tt -n idaas-connectk
-kubectl delete TriggerBinding idaas-app-tb -n idaas-connectk
-kubectl delete EventListener idass-app-el -n idaas-connectk
-kubectl delete route idaas-app-el -n idaas-connectk
-```
-
-![Openshift Topology view ](screenshots/openshifttopologyview.png)
+![Argocd Project](screenshots/idaas-argocd-view.png)
