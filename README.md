@@ -30,8 +30,10 @@ Following components will be deployed using idaas-connect-gitops
 1)	Create a openshift project idaas-connectk
 2)	Clone the project
 3)	Deploy the artifacts on openshift
-Deployment can be done in two ways
+
+### Deployment can be done in two ways
 1)	Command line and 2) ArgoCD
+
 To use command line 
 1)	Install kustomize 
 2)	Login using oc
