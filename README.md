@@ -39,3 +39,5 @@ kubectl delete TriggerBinding idaas-app-tb -n idaas-connectk
 kubectl delete EventListener idass-app-el -n idaas-connectk
 kubectl delete route idaas-app-el -n idaas-connectk
 ```
+
+![Openshift Topology view ](screenshots/openshifttopologyview.png)
