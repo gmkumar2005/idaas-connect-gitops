@@ -1,5 +1,3 @@
-# idaas-connect-gitops
-
 # About idaas-connect-gitops 
 _**idaas-connect-gitops**_  is an opensource project developed by Parkar Consulting Group which automates deployment of iDaas components on to OpenShift. It helps developer teams quickly get started with the healthcare projects utilizing RedHat Openshift platform. Customizable to your project requirements.
 
