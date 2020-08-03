@@ -25,7 +25,7 @@ Following components will be deployed using idaas-connect-gitops
 
 *Optional* : Argocd
 
-1)	Create a openshift project idaas-connectk
+1)	Create a openshift project idaas-connect
 2)	Clone the project
 3)	Deploy the artifacts on openshift
 

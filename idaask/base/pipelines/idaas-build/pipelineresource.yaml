@@ -5,5 +5,5 @@ metadata:
 spec:
   params:
     - name: url
-      value: 'image-registry.openshift-image-registry.svc:5000/idaas-connectk/idaas-testingcomponent-app:latest'
+      value: 'image-registry.openshift-image-registry.svc:5000/idaas-connect/idaas-testingcomponent-app:latest'
   type: image
