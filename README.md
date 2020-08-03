@@ -43,22 +43,22 @@ ArgoCD will keep track of changes in your infra and also changes in your github 
 It ensures consistent copy of the configurations are deployed on the OpenShift clusters. When changes are detected it can sync to achieve the desired state. 
 
 ## Screenshots
-1)	OpenShift topology view
+### 1)	OpenShift topology view
 
 ![Openshift Topology view](screenshots/idaas-openshift-topology-view.png)
 
-2) Tekton build pipeline view
+### 2) Tekton build pipeline view
 
 ![Tekton build pipeline view](screenshots/idaas-tekton-pipeline-view.png)
 
-3) Deployments view
+### 3) Deployments view
 
 ![Deployments view](screenshots/idaas-deployments-view.png)
 
-4) KafDrop UI
+### 4) KafDrop UI
 
 ![KafDrop UI](screenshots/idaas-kafdrop-view.png)
 
-5) Argocd Project
+### 5) Argocd Project
 
 ![Argocd Project](screenshots/idaas-argocd-view.png)
