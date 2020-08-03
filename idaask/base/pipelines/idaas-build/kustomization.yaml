@@ -6,4 +6,4 @@ resources:
 - pipeline.yaml
 - pipelineresource.yaml
 - triggers.yaml
-- pipelinerun.yaml 
+# - pipelinerun.yaml 
