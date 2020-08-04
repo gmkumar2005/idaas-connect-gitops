@@ -9,19 +9,6 @@ spec:
       timeoutSeconds: 600
     resources: {}
     activeDeadlineSeconds: 21600
-  triggers:
-    - type: ImageChange
-      imageChangeParams:
-        automatic: true
-        containerNames:
-          - mariadb
-        from:
-          kind: ImageStreamTag
-          namespace: openshift
-          name: 'mariadb:10.2'
-        lastTriggeredImage: >-
-          image-registry.openshift-image-registry.svc:5000/openshift/mariadb:10.2
-    - type: ConfigChange
   replicas: 1
   test: false
   selector:
